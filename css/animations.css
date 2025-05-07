@@ -1,0 +1,324 @@
+/* Animations CSS */
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+/* Slide In Animation */
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.slide-in-right {
+    animation: slideInFromRight 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.slide-in-left {
+    animation: slideInFromLeft 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+/* Subtle Bounce Animation */
+@keyframes subtleBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.bounce {
+    animation: subtleBounce 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse {
+    animation: pulse 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* Subtle Shake Animation */
+@keyframes subtleShake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-2px);
+    }
+    75% {
+        transform: translateX(2px);
+    }
+}
+
+.shake {
+    animation: subtleShake 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* Rotate Animation */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotate {
+    animation: rotate 2.5s linear infinite;
+}
+
+/* Float Animation */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.float {
+    animation: float 3.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* Game Card Hover Effect */
+.game-card {
+    transition: transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1), 
+                box-shadow 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.game-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Button Click Animation */
+@keyframes buttonClick {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.98);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.btn:active {
+    animation: buttonClick 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* Page Transition Animation */
+.page-transition {
+    transition: opacity 0.5s cubic-bezier(0.215, 0.61, 0.355, 1), 
+                transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.page-transition.exit {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.page-transition.enter {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.page-transition.enter-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Loading Animation */
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading {
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    border-top-color: var(--accent-color);
+    animation: loading 1s linear infinite;
+    display: inline-block;
+}
+
+/* Logo Animation */
+.logo-animation {
+    transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.logo-animation:hover {
+    transform: rotate(1deg) scale(1.02);
+}
+
+/* Form Field Focus Animation */
+.form-group input:focus {
+    animation: formFieldFocus 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+@keyframes formFieldFocus {
+    0% {
+        border-color: var(--border-color);
+        box-shadow: none;
+    }
+    100% {
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 3px rgba(92, 107, 192, 0.15);
+    }
+}
+
+/* Notification Animation */
+@keyframes notification {
+    0% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    10% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    90% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+}
+
+.notification {
+    animation: notification 4s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+/* Staggered Fade In Animation for Lists */
+.stagger-fade-in > * {
+    opacity: 0;
+    animation: fadeIn 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+.stagger-fade-in > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-fade-in > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-fade-in > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-fade-in > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-fade-in > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-fade-in > *:nth-child(6) { animation-delay: 0.6s; }
+.stagger-fade-in > *:nth-child(7) { animation-delay: 0.7s; }
+.stagger-fade-in > *:nth-child(8) { animation-delay: 0.8s; }
+
+/* Smooth Reveal Animation */
+@keyframes smoothReveal {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+.smooth-reveal {
+    animation: smoothReveal 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+/* Subtle Scale Animation */
+@keyframes subtleScale {
+    0% {
+        transform: scale(0.98);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.scale-in {
+    animation: subtleScale 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+/* Focus Animation for Input Fields */
+@keyframes inputFocus {
+    0% {
+        background-color: #f9f9f9;
+    }
+    100% {
+        background-color: white;
+    }
+}
+
+.input-focus {
+    animation: inputFocus 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+/* Button Hover Animation */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.btn:hover::after {
+    transform: translateX(0);
+}

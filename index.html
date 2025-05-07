@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juguetería UAM</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Auth Section (Login/Register) -->
+        <div id="auth-section" class="section">
+            <div class="auth-container scale-in">
+                <div class="logo-container logo-animation">
+                    <h1 class="main-title">Juguetería UAM</h1>
+                    <p class="subtitle">No, aquí no está tu ex, sorry, sigue buscando</p>
+                </div>
+                <div class="auth-forms">
+                    <!-- Login Form -->
+                    <div id="login-form" class="auth-form active">
+                        <h2>Iniciar Sesión</h2>
+                        <form id="login" class="stagger-fade-in">
+                            <div class="form-group">
+                                <label for="login-email">Correo Electrónico</label>
+                                <input type="email" id="login-email" placeholder="tu@correo.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="login-password">Contraseña</label>
+                                <input type="password" id="login-password" placeholder="Tu contraseña" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                        </form>
+                        <p class="form-switch">¿No tienes cuenta? <a href="#" id="show-register">Regístrate</a></p>
+                    </div>
+                    
+                    <!-- Register Form -->
+                    <div id="register-form" class="auth-form">
+                        <h2>Registrarse</h2>
+                        <form id="register" class="stagger-fade-in">
+                            <div class="form-group">
+                                <label for="register-name">Nombre</label>
+                                <input type="text" id="register-name" placeholder="Tu nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-email">Correo Electrónico</label>
+                                <input type="email" id="register-email" placeholder="tu@correo.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-password">Contraseña</label>
+                                <input type="password" id="register-password" placeholder="Contraseña segura" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Registrarse</button>
+                        </form>
+                        <p class="form-switch">¿Ya tienes cuenta? <a href="#" id="show-login">Iniciar Sesión</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Section (Game Platform) -->
+        <div id="home-section" class="section hidden">
+            <header>
+                <div class="header-content">
+                    <h1 class="main-title">Juguetería UAM</h1>
+                    <p class="small-subtitle">No, aquí no está tu ex, sorry</p>
+
+                    <div class="user-info-container">
+                        <p class="user-info">Bienvenido, <span id="user-name">Usuario</span></p>
+                        <button id="logout-btn" class="btn btn-secondary">Cerrar Sesión</button>
+                    </div>
+                </div>
+            </header>
+            
+            <main>
+                <h2 class="section-title">Top players! 🎮</h2>
+                <section class="score-section">
+                    <div class="score-header">
+                        <h2 class="score-title">Tabla de Puntajes</h2>
+                    </div>
+                    <table class="score-table">
+                        <thead>
+                            <tr>
+                                <th>Posición</th>
+                                <th>Jugador</th>
+                                <th>Juego</th>
+                                <th>Puntaje</th>
+                            </tr>
+                        </thead>
+                        <tbody id="score-table-body">
+                            <!-- Scores will be dynamically loaded here -->
+                        </tbody>
+                    </table>
+                </section>
+
+                <h2 class="section-title">Juegos Disponibles</h2>
+                <div id="games-grid" class="games-grid stagger-fade-in" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin: 20px;">
+                    <!-- Games will be dynamically loaded here -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/games.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

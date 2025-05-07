@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Muestra - Juguetería UAM</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #f39c12;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-color);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .game-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .game-area {
+            width: 100%;
+            height: 300px;
+            background-color: var(--dark-color);
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-character {
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            position: absolute;
+            transition: all 0.2s ease;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin: 0 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .score-display {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Juego de Muestra</h1>
+        <p>Un juego simple para demostrar la estructura modular.</p>
+        
+        <div class="score-display">Puntuación: <span id="score">0</span></div>
+        
+        <div class="game-area" id="game-area">
+            <div class="game-character" id="character"></div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn btn-primary" id="start-btn">Iniciar Juego</button>
+            <button class="btn btn-primary" id="reset-btn">Reiniciar</button>
+        </div>
+    </div>
+    
+    <script>
+        // Game variables
+        let score = 0;
+        let gameActive = false;
+        let character = document.getElementById('character');
+        let gameArea = document.getElementById('game-area');
+        let scoreDisplay = document.getElementById('score');
+        let startBtn = document.getElementById('start-btn');
+        let resetBtn = document.getElementById('reset-btn');
+        
+        // Set initial character position
+        character.style.left = '50%';
+        character.style.top = '50%';
+        character.style.transform = 'translate(-50%, -50%)';
+        
+        // Start game
+        startBtn.addEventListener('click', () => {
+            if (!gameActive) {
+                gameActive = true;
+                startBtn.textContent = 'Juego en curso';
+                startBtn.disabled = true;
+                startGame();
+            }
+        });
+        
+        // Reset game
+        resetBtn.addEventListener('click', () => {
+            gameActive = false;
+            score = 0;
+            scoreDisplay.textContent = score;
+            startBtn.textContent = 'Iniciar Juego';
+            startBtn.disabled = false;
+            
+            // Reset character position
+            character.style.left = '50%';
+            character.style.top = '50%';
+            character.style.transform = 'translate(-50%, -50%)';
+        });
+        
+        // Game logic
+        function startGame() {
+            // Create targets at random intervals
+            const gameInterval = setInterval(() => {
+                if (!gameActive) {
+                    clearInterval(gameInterval);
+                    return;
+                }
+                
+                createTarget();
+            }, 1000);
+            
+            // Make character movable
+            gameArea.addEventListener('mousemove', moveCharacter);
+            gameArea.addEventListener('touchmove', moveCharacterTouch);
+        }
+        
+        // Move character with mouse
+        function moveCharacter(e) {
+            if (!gameActive) return;
+            
+            const rect = gameArea.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            // Keep character within bounds
+            const charWidth = character.offsetWidth;
+            const charHeight = character.offsetHeight;
+            
+            const maxX = rect.width - charWidth / 2;
+            const maxY = rect.height - charHeight / 2;
+            const minX = charWidth / 2;
+            const minY = charHeight / 2;
+            
+            const boundedX = Math.min(Math.max(x, minX), maxX);
+            const boundedY = Math.min(Math.max(y, minY), maxY);
+            
+            character.style.left = `${boundedX}px`;
+            character.style.top = `${boundedY}px`;
+            character.style.transform = 'translate(-50%, -50%)';
+        }
+        
+        // Move character with touch
+        function moveCharacterTouch(e) {
+            e.preventDefault();
+            if (!gameActive) return;
+            
+            const rect = gameArea.getBoundingClientRect();
+            const touch = e.touches[0];
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            
+            // Keep character within bounds
+            const charWidth = character.offsetWidth;
+            const charHeight = character.offsetHeight;
+            
+            const maxX = rect.width - charWidth / 2;
+            const maxY = rect.height - charHeight / 2;
+            const minX = charWidth / 2;
+            const minY = charHeight / 2;
+            
+            const boundedX = Math.min(Math.max(x, minX), maxX);
+            const boundedY = Math.min(Math.max(y, minY), maxY);
+            
+            character.style.left = `${boundedX}px`;
+            character.style.top = `${boundedY}px`;
+            character.style.transform = 'translate(-50%, -50%)';
+        }
+        
+        // Create a target
+        function createTarget() {
+            const target = document.createElement('div');
+            target.className = 'game-target';
+            
+            // Random position
+            const size = Math.floor(Math.random() * 20) + 20; // 20-40px
+            const maxX = gameArea.offsetWidth - size;
+            const maxY = gameArea.offsetHeight - size;
+            
+            const x = Math.floor(Math.random() * maxX);
+            const y = Math.floor(Math.random() * maxY);
+            
+            // Style the target
+            target.style.width = `${size}px`;
+            target.style.height = `${size}px`;
+            target.style.backgroundColor = getRandomColor();
+            target.style.borderRadius = '50%';
+            target.style.position = 'absolute';
+            target.style.left = `${x}px`;
+            target.style.top = `${y}px`;
+            target.style.cursor = 'pointer';
+            
+            // Add click event
+            target.addEventListener('click', () => {
+                if (gameActive) {
+                    score += 10;
+                    scoreDisplay.textContent = score;
+                    target.remove();
+                    
+                    // Communicate with parent app
+                    sendScoreToParent(score);
+                }
+            });
+            
+            // Add to game area
+            gameArea.appendChild(target);
+            
+            // Remove after 2 seconds
+            setTimeout(() => {
+                if (target.parentNode === gameArea) {
+                    target.remove();
+                }
+            }, 2000);
+        }
+        
+        // Get random color
+        function getRandomColor() {
+            const colors = [
+                '#3498db', // blue
+                '#2ecc71', // green
+                '#e74c3c', // red
+                '#f39c12', // orange
+                '#9b59b6'  // purple
+            ];
+            
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        // Send score to parent application
+        function sendScoreToParent(score) {
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({
+                    type: 'MODULE_DATA',
+                    data: {
+                        score: score,
+                        gameId: 'sample-game'
+                    }
+                }, '*');
+            }
+        }
+        
+        // Listen for messages from parent
+        window.addEventListener('message', (event) => {
+            // Verify origin in production
+            
+            const message = event.data;
+            
+            if (message.type === 'PARENT_DATA') {
+                console.log('Received data from parent:', message.data);
+                
+                // Handle parent data
+                if (message.data.command === 'stop') {
+                    gameActive = false;
+                    startBtn.textContent = 'Iniciar Juego';
+                    startBtn.disabled = false;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
